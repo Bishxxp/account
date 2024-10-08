@@ -10,7 +10,8 @@ class FormScreen extends StatelessWidget {
 
   final formKey = GlobalKey<FormState>();
   final titleController = TextEditingController();
-  final amountController = TextEditingController();
+  final clubController = TextEditingController();
+  final countryController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class FormScreen extends StatelessWidget {
               children: [
                 TextFormField(
                   decoration: const InputDecoration(
-                    labelText: 'ชื่อรายการ',
+                    labelText: 'ชื่อนักบอล',
                   ),
                   autofocus: false,
                   controller: titleController,
@@ -37,18 +38,25 @@ class FormScreen extends StatelessWidget {
                 ),
                 TextFormField(
                   decoration: const InputDecoration(
-                    labelText: 'จำนวนเงิน',
+                    labelText: 'ชื่อสโมสร',
                   ),
-                  keyboardType: TextInputType.number,
-                  controller: amountController,
-                  validator: (String? input) {
-                    try {
-                      double amount = double.parse(input!);
-                      if (amount < 0) {
-                        return 'กรุณากรอกข้อมูลมากกว่า 0';
-                      }
-                    } catch (e) {
-                      return 'กรุณากรอกข้อมูลเป็นตัวเลข';
+                  autofocus: false,
+                  controller: clubController,
+                  validator: (String? str) {
+                    if (str!.isEmpty) {
+                      return 'กรุณากรอกข้อมูล';
+                    }
+                  },
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    labelText: 'ชื่อทีมชาติ',
+                  ),
+                  autofocus: false,
+                  controller: countryController,
+                  validator: (String? str) {
+                    if (str!.isEmpty) {
+                      return 'กรุณากรอกข้อมูล';
                     }
                   },
                 ),
@@ -61,7 +69,8 @@ class FormScreen extends StatelessWidget {
                               var statement = Transactions(
                                   keyID: null,
                                   title: titleController.text,
-                                  amount: double.parse(amountController.text),
+                                  club: clubController.text,
+                                  country: countryController.text,
                                   date: DateTime.now()
                                   );
                             

@@ -1,25 +1,24 @@
 import 'package:account/provider/transection_provider.dart';
 import 'package:account/screens/edit_screen.dart';
-import 'package:account/screens/form_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
- 
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
- 
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
- 
+
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.primary,
-          title: const Text("แอพบัญชี"),
+          title: const Text("รายการนักฟุตบอล"),
           actions: [
             IconButton(
               icon: const Icon(Icons.exit_to_app),
@@ -45,14 +44,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     margin:
                         const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
                     child: ListTile(
-                      title: Text(statement.title),
-                      subtitle: Text(DateFormat('dd MMM yyyy hh:mm:ss')
-                          .format(statement.date)),
+                      title: Text(statement.title), // Showing the title
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Club: ${statement.club}'), // Showing the club
+                          Text('Country: ${statement.country}'), // Showing the country
+                          Text(DateFormat('dd MMM yyyy hh:mm:ss')
+                              .format(statement.date)),
+                        ],
+                      ),
                       leading: CircleAvatar(
                         radius: 30,
-                        child: FittedBox(
-                          child: Text('${statement.club}'),
-                        ),
+                        backgroundImage:NetworkImage('https://img.pikbest.com/origin/09/25/60/94hpIkbEsT9vn.png!sw800'),          
                       ),
                       trailing: IconButton(
                         icon: const Icon(Icons.delete),
@@ -76,8 +80,6 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             }
           },
-        )
-        // This trailing comma makes auto-formatting nicer for build methods.
-        );
+        ));
   }
 }
